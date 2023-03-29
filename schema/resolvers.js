@@ -3,7 +3,8 @@ const _ = require('lodash');
 
 const resolvers = {
     Query: {
-        users: () => {
+        users: (parent) => {
+            // console.log(parent)
             return UserList
         },
         user: (parent, args) => {
@@ -13,12 +14,14 @@ const resolvers = {
         movies: () => {
             return MovieList
         },
-        movie: (parent, args) => {
+        movie: (parent, args, context) => {
+            console.log(context)
             return _.find(MovieList, {name: args.name})
         } 
     },
     User: {
-        favouriteMovies: () => {
+        favouriteMovies: (parent) => {
+            // console.log(parent)
             return _.filter(MovieList, (movie) => movie.yearOfPublication >= 2000 && movie.yearOfPublication <=2010)
         }
     },
